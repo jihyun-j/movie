@@ -112,7 +112,6 @@ slide();
 const hearderEl = document.querySelector(".header-container");
 
 window.addEventListener("scroll", function () {
-  console.log(window.scrollY);
   if (window.scrollY > 300) {
     hearderEl.classList.add("add-background");
   } else {
