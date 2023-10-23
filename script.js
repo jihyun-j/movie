@@ -7,11 +7,19 @@ const searchFormEl = document.querySelector("#search-form");
 const api_key = "f9d7933ff34c54cd09fa42a11bd5a1a2";
 const baseUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US`;
 
+// let array = [];
+// console.log(array.length);
+
 fetch(baseUrl)
   .then((response) => response.json())
   .then((response) => {
     let movieData = response.results;
+    // movieData.forEach((item) => {
+    //   let title = item.title;
+    //   return array.push(title);
+    // });
     printMovieData(movieData);
+    slide(movieData);
   })
   .catch((err) => console.error(err));
 
@@ -52,9 +60,11 @@ const searchMovie = (e) => {
   e.preventDefault();
   const movieTitles = document.querySelectorAll(".title");
   let searchInput = searchInputEl.value;
-  let cards = document.querySelectorAll(".card-container");
+  const cards = document.querySelectorAll(".card-container");
+  const count = document.querySelector(".count-movies");
 
-  // Display movies
+  let movieCount = 0;
+
   movieTitles.forEach((title, index) => {
     let isVisible =
       title.innerHTML.toUpperCase().includes(searchInput.toUpperCase()) ||
@@ -62,18 +72,51 @@ const searchMovie = (e) => {
 
     if (isVisible) {
       cards[index].classList.remove("hide");
+      movieCount++;
     } else {
       cards[index].classList.add("hide");
     }
   });
+  count.innerText = `검색된 영화: ${movieCount}`;
 };
 
-// Search button
-// searchButtonEl.addEventListener("click", searchMovie);
-
-// Search form
 searchFormEl.addEventListener("submit", searchMovie);
 
-// window.onload = function () {
-//   searchInputEl.focus();
-// };
+// Slide
+
+const slide = (movies) => {
+  let slideCotainer = document.querySelector(".slide-container");
+
+  setInterval(() => {
+    let random = Math.floor(Math.random() * movies.length);
+    let backdropImgPath = `https://image.tmdb.org/t/p/w500${movies[random].backdrop_path}`;
+    let movieTitle = movies[random].title;
+    let movieOverview = movies[random].overview.substring(0, 200) + "...";
+
+    slideCotainer.style.backgroundImage = `linear-gradient(to left, rgba(255,255,255,0), rgba(0,0,0,1)), url(${backdropImgPath})`;
+
+    let slideTemp = `
+    <div class="movie-info-container">
+      <p class="movie-title">${movieTitle}</p>
+      <p class="movie-overview">${movieOverview}</p>
+      <button class="learn-more">Learn More</button>
+    </div>
+    `;
+
+    slideCotainer.innerHTML = slideTemp;
+  }, 5000);
+};
+
+slide();
+
+// header background
+const hearderEl = document.querySelector(".header-container");
+
+window.addEventListener("scroll", function () {
+  console.log(window.scrollY);
+  if (window.scrollY > 300) {
+    hearderEl.classList.add("add-background");
+  } else {
+    hearderEl.classList.remove("add-background");
+  }
+});

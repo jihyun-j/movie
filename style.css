@@ -19,6 +19,8 @@
 }
 
 body {
+  max-width: 130rem;
+  margin: 0 auto;
   font-size: 62.5%;
   font-family: "Noto Sans", sans-serif;
   background-color: var(--black-color);
@@ -26,36 +28,31 @@ body {
 
 .search-input {
   height: 3rem;
-  width: 20rem;
+  width: 25rem;
   outline: none;
-  border-radius: 0.5rem;
+  border-radius: 5rem;
   border: 1px solid var(--white-color);
   background-color: transparent;
   color: var(--white-color);
   font-size: var(--h5-font);
+  padding-left: 2rem;
 }
 
 .search-input:focus {
   border: 0.2rem solid var(--pink-color);
 }
 
-.search-btn {
-  height: 3rem;
-  padding: 0 1rem;
-  font-size: var(--h5-font);
-  cursor: pointer;
-}
-
-.search-btn:hover {
-  background-color: var(--pink-color);
-}
-
 /* Header Section */
 .header-container {
   display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   align-items: center;
   justify-content: space-around;
   height: 8rem;
+  z-index: 1;
 }
 
 .header-container .header-title {
@@ -64,12 +61,87 @@ body {
   color: var(--white-color);
 }
 
+.header-container #search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.material-symbols-outlined {
+  color: var(--white-color);
+  position: absolute;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Slide Section */
+.slide-container {
+  position: relative;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  height: 70vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: left;
+}
+
+.slide-container .movie-info-container {
+  position: absolute;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  margin-left: 5rem;
+}
+
+.slide-container .movie-title {
+  font-size: var(--h1-font);
+  font-weight: 600;
+  color: var(--white-color);
+}
+
+.slide-container .movie-overview {
+  width: 50rem;
+  color: var(--white-color);
+  top: 20rem;
+  right: 5rem;
+  font-size: var(--h4-font);
+  line-height: 1.5;
+}
+
+.slide-container .learn-more {
+  width: 11rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50rem;
+  font-size: var(--h5-font);
+  background-color: var(--pink-color);
+  color: var(--white-color);
+}
+
+.slide-container .learn-more:hover {
+  cursor: pointer;
+  box-shadow: 5px 0px 30px 0px var(--pink-color);
+}
+
 /* Movies Section */
-.movie-container {
-  max-width: 130rem;
+.main-container {
+  margin-top: 5rem;
+}
+
+.main-container .count-movies {
+  font-size: var(--h2-font);
+  color: var(--white-color);
+}
+
+.main-container .movie-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
-  margin: 10rem auto;
+  margin: 3rem auto;
   gap: 5rem;
   color: var(--white-color);
 }
@@ -90,26 +162,34 @@ body {
 .movie-container .card-container .movie-info {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;
-  height: fit-content;
   transform: rotateY(180deg);
-  margin: 2rem;
-  overflow: hidden;
+  margin: 0 2rem;
+  height: 100%;
   backface-visibility: hidden;
 }
 
-.movie-container .card-container .poster_img:hover {
-  filter: blur(3px) brightness(20%);
+.movie-container .card-container:hover .poster_img {
+  filter: blur(3px) brightness(50%);
+}
+
+.movie-container .card-container .poster_img {
+  height: 100%;
+  /* filter: blur(3px) brightness(50%); */
 }
 
 .movie-container .card-container .title {
-  font-size: var(--h4-font);
+  font-size: var(--h3-font);
+  font-weight: 500;
 }
 
 .movie-container .card-container .overview {
   font-size: var(--h5-font);
+  line-height: 1.5rem;
 }
 .movie-container .card-container .vote_average {
   display: flex;
@@ -117,7 +197,7 @@ body {
   align-items: center;
   width: 2rem;
   height: 2rem;
-  /* position: absolute; */
+
   background-color: var(--purple-color);
   font-size: var(--h3-font);
   padding: 2rem;
@@ -126,4 +206,8 @@ body {
 
 .card-container.hide {
   display: none;
+}
+
+.add-background {
+  background-color: var(--purple-color);
 }

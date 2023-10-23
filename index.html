@@ -8,6 +8,9 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   </head>
   <body>
     <!-- Header -->
@@ -16,14 +19,20 @@
 
       <form action="" id="search-form">
         <label for="search"></label>
-        <input class="search-input" type="text" autofocus />
+        <input class="search-input" type="text" autofocus required />
         <!-- <input class="search-btn" type="submit" value="검색" /> -->
-        <button>검색</button>
+        <button class="material-symbols-outlined">search</button>
       </form>
     </header>
 
+    <!-- Slide -->
+    <div class="slide-container"></div>
+
     <!-- Movies -->
-    <div class="movie-container"></div>
+    <div class="main-container">
+      <h2 class="count-movies"></h2>
+      <div class="movie-container"></div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
