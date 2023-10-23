@@ -9,6 +9,18 @@ const baseUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&l
 
 // let array = [];
 // console.log(array.length);
+fetch(baseUrl)
+  .then((response) => response.json())
+  .then((response) => {
+    let movieData = response.results;
+    // movieData.forEach((item) => {
+    //   let title = item.title;
+    //   return array.push(title);
+    // });
+    printMovieData(movieData);
+    slide(movieData);
+  })
+  .catch((err) => console.error(err));
 
 // API 데이터 화면에 표시하기
 const printMovieData = (movie) => {
@@ -107,16 +119,3 @@ window.addEventListener("scroll", function () {
     hearderEl.classList.remove("add-background");
   }
 });
-
-fetch(baseUrl)
-  .then((response) => response.json())
-  .then((response) => {
-    let movieData = response.results;
-    // movieData.forEach((item) => {
-    //   let title = item.title;
-    //   return array.push(title);
-    // });
-    printMovieData(movieData);
-    slide(movieData);
-  })
-  .catch((err) => console.error(err));
