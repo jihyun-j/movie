@@ -77,6 +77,8 @@ const searchMovie = (e) => {
       title.innerHTML.toUpperCase().includes(searchInput.toUpperCase()) ||
       title.innerHTML.toLowerCase().includes(searchInput.toLowerCase());
 
+    console.log(isVisible);
+
     if (isVisible) {
       // 카드 하나 하나씩 순회하면서 만약 영화제목에 input 값이 포함 되어 있으면 카드 보이기
       cards[index].classList.remove("hide");
