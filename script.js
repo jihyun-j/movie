@@ -7,20 +7,26 @@ const searchFormEl = document.querySelector("#search-form");
 const api_key = "f9d7933ff34c54cd09fa42a11bd5a1a2";
 const baseUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=en-US`;
 
-// let array = [];
-// console.log(array.length);
 fetch(baseUrl)
   .then((response) => response.json())
   .then((response) => {
     let movieData = response.results;
-    // movieData.forEach((item) => {
-    //   let title = item.title;
-    //   return array.push(title);
-    // });
     printMovieData(movieData);
+    runSlide(movieData);
     slide(movieData);
   })
   .catch((err) => console.error(err));
+
+setInterval(() => {
+  fetch(baseUrl)
+    .then((response) => response.json())
+    .then((response) => {
+      let movieData = response.results;
+      runSlide(movieData);
+      slide(movieData);
+    })
+    .catch((err) => console.error(err));
+}, 3000);
 
 // API 데이터 화면에 표시하기
 const printMovieData = (movie) => {
@@ -86,32 +92,32 @@ const searchMovie = (e) => {
 // 영화 검색 form에 대한 이벤트
 searchFormEl.addEventListener("submit", searchMovie);
 
-// Slide
 const slide = (movies) => {
   let slideCotainer = document.querySelector(".slide-container"); // 메인 슬라이드 컨테이너 가져오기
 
-  // 5초마다 바뀌는 영화 정보
-  setInterval(() => {
-    let random = Math.floor(Math.random() * movies.length); // 랜덤 인덱스
-    let backdropImgPath = `https://image.tmdb.org/t/p/w500${movies[random].backdrop_path}`; // backdrop 이미지 랜덤으로 가져오기
-    let movieTitle = movies[random].title; // 영화 제목 랜덤으로 가져오기
-    let movieOverview = movies[random].overview.substring(0, 200) + "..."; // 영화 줄거리도 가져오기
+  let random = Math.floor(Math.random() * movies.length); // 랜덤 인덱스
+  let backdropImgPath = `https://image.tmdb.org/t/p/w500${movies[random].backdrop_path}`; // backdrop 이미지 랜덤으로 가져오기
+  let movieTitle = movies[random].title; // 영화 제목 랜덤으로 가져오기
+  let movieOverview = movies[random].overview.substring(0, 200) + "..."; // 영화 줄거리도 가져오기
 
-    // 메인 슬라이드에 랜덤 이미지와 그라데이션과 주기
-    slideCotainer.style.backgroundImage = `linear-gradient(to left, rgba(255,255,255,0), rgba(0,0,0,1)), url(${backdropImgPath})`;
+  // 메인 슬라이드에 랜덤 이미지와 그라데이션과 주기
+  slideCotainer.style.backgroundImage = `linear-gradient(to left, rgba(255,255,255,0), rgba(0,0,0,1)), url(${backdropImgPath})`;
 
-    // 슬라이드 이미지 위에 들어갈 정보들
-    let slideTemp = ` 
-    <div class="movie-info-container">
-      <p class="movie-title">${movieTitle}</p>
-      <p class="movie-overview">${movieOverview}</p>
-      <button class="play-now-btn">Play now</button>
-    </div>
-    `;
+  // 슬라이드 이미지 위에 들어갈 정보들
+  let slideTemp = ` 
+  <div class="movie-info-container">
+    <p class="movie-title">${movieTitle}</p>
+    <p class="movie-overview">${movieOverview}</p>
+    <button class="play-now-btn">Play now</button>
+  </div>
+  `;
 
-    // 메인 슬라이드에 영화 정보 추가하기
-    slideCotainer.innerHTML = slideTemp;
-  }, 5000);
+  // 메인 슬라이드에 영화 정보 추가하기
+  slideCotainer.innerHTML = slideTemp;
+};
+
+const runSlide = (movies) => {
+  slide(movies);
 };
 
 // 스크롤 했을 때, Header 배경색 바꾸기
